@@ -1,48 +1,88 @@
-# codifire-modules
+# Laravel Drag and Drop menu editor
 
-| **Laravel**  |  **codifire-modules** |
-|---|---|
-| 5.4  | ^1.0  |
-| 5.5  | ^2.0  |
 
-`codifire/codifire-modules` is a Laravel package which created to manage your large Laravel app using modules. Module is like a Laravel package, it has some views, controllers or models. This package is supported and tested in Laravel 5.
+### Installation
+1. Run
+```php
+composer require harimayco/codifire-menu
+```
+***Step 2 & 3 are optional if you are using laravel 5.5***
 
-This package is a re-published, re-organised and maintained version of [pingpong/modules](https://github.com/pingpong-labs/modules), which isn't maintained anymore. This package is used in [AsgardCMS](https://asgardcms.com/).
+2. Add the following class, to "providers" array in the file config/app.php (optional on laravel 5.5)
+```php
+Jarhen\Menu\MenuServiceProvider::class,
+```
+3. add facade in the file config/app.php (optional on laravel 5.5)
+```php
+'Menu' => Jarhen\Menu\Facades\Menu::class,
+```
+4. Run publish
+```php
+php artisan vendor:publish --provider="Jarhen\Menu\MenuServiceProvider"
+```
+5. Configure (optional) in ***config/menu.php*** :
+- ***CUSTOM MIDDLEWARE:*** You can add you own middleware 
+- ***TABLE PREFIX:*** By default this package will create 2 new tables named "menus" and "menu_items" but you can still add your own table prefix avoiding conflict with existing table
+- ***TABLE NAMES*** If you want use specific name of tables you have to modify that and the migrations
+- ***Custom routes*** If you want to edit the route path you can edit the field
+6. Run migrate
 
-## Install
+ ```php
+ php artisan migrate
+ ```
 
-To install through Composer, by run the following command:
+ DONE
 
-``` bash
-composer require jarhen/codifire-modules
+
+### Usage Example
+On your view blade file
+```php
+@extends('app')
+
+@section('contents')
+    {!! Menu::render() !!}
+@endsection
+
+//YOU MUST HAVE JQUERY LOADED BEFORE menu scripts
+@push('scripts')
+    {!! Menu::scripts() !!}
+@endpush
 ```
 
-The package will automatically register a service provider and alias.
-
-Optionally, publish the package's configuration file by running:
-
-``` bash
-php artisan vendor:publish --provider="Jarhen\Modules\LaravelModulesServiceProvider"
+### Get Menu Items By Menu ID
+```php
+use Jarhen\Menu\Facades\Menu;
+...
+/*
+Parameter: Menu ID
+Return: Array
+*/
+$menuList = Menu::get(1);
 ```
 
-### Autoloading
+### Get Menu Items By Menu Name
+In this example, you must have a menu named  *Admin*
 
-By default the module classes are not loaded automatically. You can autoload your modules using `psr-4`. For example:
-
-``` json
-{
-  "autoload": {
-    "psr-4": {
-      "App\\": "app/",
-      "Modules\\": "Modules/"
-    }
-  }
-}
+```php
+use Jarhen\Menu\Facades\Menu;
+...
+/*
+Parameter: Menu ID
+Return: Array
+*/
+$menuList = Menu::getByName('Admin');
 ```
 
-**Tip: don't forget to run `composer dump-autoload` afterwards.**
+### Using The Model
+Call the model class
+```php
+use Jarhen\Menu\Models\Menus;
+use Jarhen\Menu\Models\MenuItems;
+```
 
+### Credits
 
-## License
+ * [wmenu](https://github.com/lordmacu/wmenu) laravel package menu like wordpress
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+### Compability
+* Tested with laravel 5.2, 5.3, 5.4, 5.5, 5.6
