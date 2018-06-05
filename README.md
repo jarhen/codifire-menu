@@ -4,7 +4,7 @@
 ### Installation
 1. Run
 ```php
-composer require harimayco/codifire-menu
+composer require jarhen/codifire-menu
 ```
 ***Step 2 & 3 are optional if you are using laravel 5.5***
 
