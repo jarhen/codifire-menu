@@ -39,6 +39,7 @@ function addcustommenu() {
 		data : {
 			labelmenu : $("#custom-menu-item-name").val(),
 			linkmenu : $("#custom-menu-item-url").val(),
+			iconmenu : $("#custom-menu-item-icon").val(),
 			idmenu : $("#idmenu").val()
 		},
 
@@ -75,11 +76,14 @@ function updateitem(id = 0) {
 			var label = $(this).find(".edit-menu-item-title").val();
 			var clases = $(this).find(".edit-menu-item-classes").val();
 			var url = $(this).find(".edit-menu-item-url").val();
+			var icon = $(this).find(".edit-menu-item-icon").val();
+			arr_data.push({
 			arr_data.push({
 				id : id,
 				label : label,
 				class : clases,
-				link : url
+				link : url,
+				icon : icon
 			});
 		});
 

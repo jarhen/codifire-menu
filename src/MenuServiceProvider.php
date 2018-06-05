@@ -48,7 +48,7 @@ class MenuServiceProvider extends ServiceProvider
             return new WMenu();
         });
 
-        $this->app->make('jarhen\Menu\Controllers\MenuController');
+        $this->app->make('Jarhen\Menu\Controllers\MenuController');
         $this->loadViewsFrom(__DIR__.'/views', 'wmenu');
 
     }

@@ -52,6 +52,7 @@ class MenuController extends Controller
                 $menuitem->label = $value['label'];
                 $menuitem->link = $value['link'];
                 $menuitem->class = $value['class'];
+				$menuitem->icon = $value['icon'];
                 $menuitem->save();
             }
         } else {
@@ -59,6 +60,7 @@ class MenuController extends Controller
             $menuitem->label = request()->input("label");
             $menuitem->link = request()->input("url");
             $menuitem->class = request()->input("clases");
+			$menuitem->icon = request()->input("icon");
             $menuitem->save();
         }
     }
@@ -70,6 +72,7 @@ class MenuController extends Controller
         $menuitem->label = request()->input("labelmenu");
         $menuitem->link = request()->input("linkmenu");
         $menuitem->menu = request()->input("idmenu");
+		$menuitem->icon = request()->input("iconmenu");
         $menuitem->sort = MenuItems::getNextSortRoot(request()->input("idmenu"));
         $menuitem->save();
 

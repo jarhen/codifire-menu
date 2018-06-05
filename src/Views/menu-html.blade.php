@@ -43,13 +43,18 @@ $currentUrl = url()->current();
 															<div class="customlinkdiv" id="customlinkdiv">
 																<p id="menu-item-url-wrap">
 																	<label class="howto" for="custom-menu-item-url"> <span>URL</span>&nbsp;&nbsp;&nbsp;
-																		<input id="custom-menu-item-url" name="url" type="text" class="code menu-item-textbox" value="{{ url() }}">
+																		<input id="custom-menu-item-url" name="url" type="text" class="code menu-item-textbox" value="">
 																	</label>
 																</p>
 
 																<p id="menu-item-name-wrap">
 																	<label class="howto" for="custom-menu-item-name"> <span>Label</span>&nbsp;
 																		<input id="custom-menu-item-name" name="label" type="text" class="regular-text menu-item-textbox input-with-default-title" title="Label menu">
+																	</label>
+																</p>
+																<p id="menu-item-icon-wrap">
+																	<label class="howto" for="custom-menu-item-icon"> <span>Icon</span>&nbsp;
+																		<input id="custom-menu-item-icon" name="icon" type="text" class="regular-text menu-item-textbox input-with-default-title" title="Icon menu">
 																	</label>
 																</p>
 
