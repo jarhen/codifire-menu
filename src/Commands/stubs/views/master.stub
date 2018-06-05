@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+		<meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Module $STUDLY_NAME$</title>
+  <!-- Bootstrap core CSS-->
+  <link href="{{ url('../resources/assets//bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <!-- Custom fonts for this template-->
+  <link href="{{ url('../resources/assets/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+  <!-- Page level plugin CSS-->
+  <link href="{{ url('../resources/assets/datatables/dataTables.bootstrap4.css') }}" rel="stylesheet">
+  <!-- Custom styles for this template-->
+  <link href="{{ asset('css/sb-admin.css') }}" rel="stylesheet">
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+@include('pages.nav')
+  <div class="content-wrapper">
+      @yield('content')
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+      @include('pages.footer')
+      @yield('script')
+  </div>
+<script type="text/javascript">
+$(document).ready(function(){
+$('#clone').click(function(){
+		$('#row_template').clone(true).insertAfter($('.table_column').last());
+
+		$('#table_columns #row_template:last-child input').val('');
+		$('#table_columns #row_template:last-child select').val('--');
+		$('#table_columns #row_template:last-child select[name="form_type[]"] ').val('INPUT');
+
+
+	});
+$(document).on('select keyup', '#module_name_singular', function() {
+		var table_name = $(this).val().replace(/\s+/g, '_').toLowerCase() + '_';
+		$('.table-name').text(table_name);
+	});
+$('.column_type').change(function() {
+	var target = $(this).parent().siblings().children('.column_length');
+		switch($(this).val()) {
+			case 'char': target.val(255); break;
+			case 'string': target.val(255); break;
+			case 'biginteger': target.val(20); break;
+			case 'integer': target.val(10); break;
+			case 'mediuminteger': target.val(8); break;
+			case 'smallinteger': target.val(5); break;
+			case 'tinyinteger': target.val(3); break;
+			case 'decimal': target.val('10,2'); break;
+			case 'enum': target.val('["Active","Disabled"]'); break;	
+			default: target.val('--'); break;
+		}	//end switch
+
+	target = $(this).parent().siblings().children('.form_type');
+		console.log($(this).val());
+		switch ($(this).val()) {
+			case 'text':
+				target.val('TEXTAREA');
+				break;
+			case 'boolean':
+				target.val('CHECKBOX');
+				break;
+			default:
+				target.val('INPUT');
+				break;
+		}	//endswitch
+});
+
+
+});
+
+</script>
+ 
+</body>
+
+</html>
+

@@ -1,0 +1,36 @@
+@extends('layouts.master')
+
+@section('title', 'Update $SINGULARNAME$')
+
+@section('pagetitle')
+<div class="row page-titles">
+    <div class="col-md-5 col-8 align-self-center">
+        <h3 class="text-themecolor m-b-0 m-t-0">Update $SINGULARNAME$</h3>
+        {{ Breadcrumbs::render('$LOWER_NAME$.edit', $$LOWER_NAME_LC$) }}
+    </div>
+</div>
+@endsection
+
+@section('content')
+<div class="card">
+    <div class="card-body">
+
+        {{ Form::model($$LOWER_NAME_LC$, array('route' => array('$LOWER_NAME$.update', $$LOWER_NAME_LC$->$IDNAME$), 'class' => 'form-material', 'method' => 'PUT')) }}
+        
+         @include('$MODULENAME$::$LOWER_NAME$._$LOWER_NAME$_form')
+
+        {{ Form::submit('Update $SINGULARNAME$', array('class' => 'btn btn-primary')) }}
+
+        {{ Form::close() }}
+
+    </div>
+</div>
+@endsection
+
+@push('styles')
+<link rel="stylesheet" href="{{ url('/vendor/jquery-ui/jquery-ui.min.css') }}">
+@endpush
+
+@push('scripts')
+<script src="{{ url('/vendor/jquery-ui/jquery-ui.min.js') }}"></script>
+@endpush

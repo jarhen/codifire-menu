@@ -1,0 +1,71 @@
+$(function() {
+	var url = window.location.href;
+    $('#datatables').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: url +'/data',
+        pagingType: "simple_numbers", // numbers, simple, simple_numbers, full, full_numbers, full_last_numbers
+        language: {
+            "paginate": {
+                "previous": 'Prev',
+                "next": 'Next', 
+            }
+        },
+        responsive: true,
+        aaSorting: [[ 0, "asc" ]],
+        columns: [
+            $SETDATATABLES$
+			{ data: 'created_at', name: 'created_at' },
+            { data: 'updated_at', name: 'updated_at' },
+            {}
+        ],
+        aoColumnDefs: [
+            {
+                "aTargets": [0],
+                "sClass": "text-center",
+            },
+            {
+                aTargets: [$SETCOUNT$],
+                bSortable: false,
+                mRender: function (data, type, full) {
+                    html = '<a href="$LOWER_NAME$/view/' + full.$ID$ + '" tooltip-toggle="tooltip" data-placement="top" title="View" class="btn btn-xs btn-success">View</a> ';
+                    html += '<a href="$LOWER_NAME$/' + full.$ID$ + '/edit" tooltip-toggle="tooltip" data-placement="top" title="Edit" class="btn btn-sm btn-warning">Edit</a> ';
+                   html += '<a href="javascript:void(0)" class="del btn btn-sm btn-danger" data-id="'+ full.$ID$ + '">Delete</a>';
+
+                    return html;
+                },
+                sClass: "min-desktop text-center",
+            },
+        ],
+        // dom: 'Bfrtip',
+        // buttons: [
+        //     'copy', 'excel', 'pdf'
+        // ],
+            
+    });
+		
+	$(document).on('click','.del',function(){
+			 id =	$(this).attr('data-id');
+			alertify.confirm('Delete', 'Are you sure you want to delete?', function(){ 
+		 $.ajaxSetup({
+                headers: {
+                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+		$.ajax({
+          	type: "POST",
+            url: url + "/" +id + "/delete",
+            cache: false,
+            dataType: 'json',
+            success: function () {
+               alertify.success('Record Deleted!') 
+			   $('#datatables').DataTable().ajax.reload();
+            }
+			});
+			}
+            , function(){ alertify.error('Cancel')});
+
+		  
+	});
+});
